@@ -1,3 +1,13 @@
+# Alert on PNG with 1x1 pixels (tracking)
+alert any any any -> any any (msg:"FILE tracking PNG (1x1 pixel) (1)"; filemagic:"PNG image data, 1 x 1,"; sid:19; rev:1;)
+alert any any any -> any any (msg:"FILE tracking PNG (1x1 pixel) (2)"; filemagic:"PNG image data, 1 x 1|00|"; sid:20; rev:1;)
+
+# Alert on GIF with 1x1 pixels (tracking)
+# The pattern matches on |00| which is the end of the magic buffer, this way we won't match on 1 x 128.
+alert any any any -> any any (msg:"FILE tracking GIF (1x1 pixel)"; filemagic:"GIF image data, version 89a, 1 x 1|00|"; sid:21; rev:1;)
+
+
+
 alert dns $HOME_NET any -> any any (msg:"PTS STALKERWARE TheTruthSpy (1ca43[.]appspot[.]com)"; metadata: type stalkerware; dns.query; content:"1ca43.appspot.com"; depth:17; nocase; endswith; fast_pattern; reference:url,github.com/AssoEchap/stalkerware-indicators; classtype:targeted-activity; sid:1000000; rev:1;)
 alert dns $HOME_NET any -> any any (msg:"PTS STALKERWARE TheTruthSpy (copy9[.]com)"; metadata: type stalkerware; dns.query; content:"copy9.com"; depth:9; nocase; endswith; fast_pattern; reference:url,github.com/AssoEchap/stalkerware-indicators; classtype:targeted-activity; sid:1000001; rev:1;)
 alert dns $HOME_NET any -> any any (msg:"PTS STALKERWARE TheTruthSpy (guestspy[.]com)"; metadata: type stalkerware; dns.query; content:"guestspy.com"; depth:12; nocase; endswith; fast_pattern; reference:url,github.com/AssoEchap/stalkerware-indicators; classtype:targeted-activity; sid:1000002; rev:1;)
